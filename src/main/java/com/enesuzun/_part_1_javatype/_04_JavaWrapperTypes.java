@@ -1,9 +1,9 @@
 package com.enesuzun._part_1_javatype;
 
-public class _02_JavaPrimitiveTypes {
+public class _04_JavaWrapperTypes {
     public static void main(String[] args) {
-        //primitive Type 8 tanedir.Null deger alamazlar
-        //tam sayılar
+        //primitive Type
+
         //byte -127 +127 arasında değer alır
         byte b1=127;
         System.out.println("byte =" + b1);
@@ -25,6 +25,9 @@ public class _02_JavaPrimitiveTypes {
         System.out.println("bool "+b3);
         //char
         char c4='E';
+        //WRAPPER TYPE
+
+        //PRİMİTİVE - WRAPPER ARASINDAKİ FARKLAR
 
 
     }
