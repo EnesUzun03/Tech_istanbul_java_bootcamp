@@ -1,6 +1,6 @@
 package com.enesuzun._part_1_javatype;
 
-public class _04_3_Cast {
+public class _04_3_HeapMemoryStackMemory {
     public static void main(String[] args) {
         //primitive Type
 
