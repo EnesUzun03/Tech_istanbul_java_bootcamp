@@ -1,4 +1,4 @@
-package com.enesuzun._part_1_javatype;
+package com.enesuzun._1_week;
 
 public class _04_2_JavaWrapperTypes {
     public static void main(String[] args) {

@@ -1,7 +1,12 @@
-package com.enesuzun._part_1_javatype;
+package com.enesuzun._1_week;
 
 import java.util.Scanner;
-
+/*
+1. 1. Dereceden 1 Bilinmeyenli Denklemi Çözme (Scanner kullanlalım)
+      Soru:
+      Kullanıcıdan ax + b = 0 denklemindeki a ve b değerlerini alıp x'i hesaplayan programı yazınız.
+      Çözüm:
+ */
 public class week1_examples_1 {
     public static void main(String[] args) {
         //bir bilinmeyenli denklemin çözümü ax+b=0

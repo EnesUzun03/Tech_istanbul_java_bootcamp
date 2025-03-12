@@ -1,4 +1,4 @@
-package com.enesuzun._part_1_javatype;
+package com.enesuzun._1_week;
 
 public class _01_JavaPsvm {
     //psvm
