@@ -2,13 +2,13 @@ package com.enesuzun._1_week;
 
 public class _04_5_Cast {
     public static void main(String[] args) {
-        //Widening Cast - İmplicit Cast
+        //Widening Cast - İmplicit Cast(Kapalı)
         byte cast1Byte=100;
         int cas1Int=cast1Byte;
         System.out.println(cas1Int);
         //Kücük olan veriyi buyuk olanın içerisine ekledim burada veri kaybı soz konusu deil
 
-        //Narrowing Cast -Explicit Cast
+        //Narrowing Cast -Explicit Cast(Açık)
         int a=1928391283;
         byte b=(byte) a;
         System.out.println(b);
