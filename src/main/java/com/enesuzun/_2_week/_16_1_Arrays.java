@@ -1,5 +1,7 @@
 package com.enesuzun._2_week;
 
+import java.util.Arrays;
+
 public class _16_1_Arrays {
     public static String[] arrayMethod() throws ArrayIndexOutOfBoundsException{
         String [] city=new String[6];//String dizisi
@@ -15,17 +17,40 @@ public class _16_1_Arrays {
         System.out.println("son eleman" + city[city.length-1]);
         return city;
     }
-
-    public static void arrayMethod2(){
-        String [] city=arrayMethod();
+    public static String[] arrayMethod2() throws ArrayIndexOutOfBoundsException{
+        //String [] city={"İstanbul","elazıg",null,"Bingöl","Bartın","Mus"};
+        String [] city={"İstanbul","elazıg","Bingöl","Bartın","Mus"};
+        //System.out.println("son eleman" + city[city.length-1]);
+        return city;
+    }
+    //iterative for döngüsü
+    public static void arrayMethod3(){
+        String [] city=arrayMethod2();
+        //for each yapısı
+        for (int i=0;i<city.length;i++){
+            System.out.println(_15_4_SpecialColor.BLUE+city[i]+_15_4_SpecialColor.RESET);
+        }
+    }
+    public static void arrayMethod4(){
+        String [] city=arrayMethod2();
         //for each yapısı
         for(String temp:city){
-            System.out.println(_15_4_SpecialColor.BLUE+temp+_15_4_SpecialColor.RESET);
+            System.out.println(_15_4_SpecialColor.YELLOW+temp+_15_4_SpecialColor.RESET);
+        }
+    }
+    public static void arrayMethod5(){
+        String [] city=arrayMethod2();
+        Arrays.sort(city);//Kücükten buyuğe sıaralama
+        for(String temp:city){
+            System.out.println(_15_4_SpecialColor.YELLOW+temp+_15_4_SpecialColor.RESET);
         }
     }
 
     public static void main(String[] args) {
         //arrayMethod();
-        arrayMethod2();
+        //arrayMethod2();
+        //arrayMethod3();
+        //arrayMethod4();
+        arrayMethod5();
     }
 }
