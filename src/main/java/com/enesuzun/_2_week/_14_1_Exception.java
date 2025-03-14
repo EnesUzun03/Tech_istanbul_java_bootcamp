@@ -28,4 +28,12 @@ public class _14_1_Exception {
         System.out.println("Son 10.000 satır");
     }
 
+    //isteyerek istisna göndereceğiz
+    public static void main(String[] args) throws IOException {
+        calcula();
+        System.out.println("################################");
+
+        // Bilerek istisna gönder
+        throw new NullPointerException("Neden boş verdiniz");
+    }
 }
