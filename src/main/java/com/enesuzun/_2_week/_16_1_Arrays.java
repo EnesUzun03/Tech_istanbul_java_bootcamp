@@ -22,7 +22,7 @@ public class _16_1_Arrays {
     }
     public static String[] arrayMethod2() throws ArrayIndexOutOfBoundsException{
         //String [] city={"İstanbul","elazıg",null,"Bingöl","Bartın","Mus"};
-        String [] city={"İstanbul","elazıg","Bingöl","Bartın","Mus"};
+        String [] city={"İstanbul","elazıg","Bingöl","Bartın","Mus","ankara","sinop","trabzon","sivas"};
         //System.out.println("son eleman" + city[city.length-1]);
         return city;
     }
@@ -49,7 +49,7 @@ public class _16_1_Arrays {
             System.out.println(_15_4_SpecialColor.YELLOW+temp+_15_4_SpecialColor.RESET);
         }
     }
-    //
+
     public static void arrayMethod6(){
         String [] city=arrayMethod2();
         Arrays.sort(city, Collections.reverseOrder());//Büyükten küçüğe
@@ -57,6 +57,32 @@ public class _16_1_Arrays {
             System.out.println(_15_4_SpecialColor.YELLOW+temp+_15_4_SpecialColor.RESET);
         }
     }
+    //Clone Sort
+    public static void arrayMethod7(){
+        //orginal
+        String [] orginalCity=arrayMethod2();
+
+        //Clone
+        String [] cloneCity=Arrays.copyOf(orginalCity,orginalCity.length);
+        Arrays.sort(cloneCity);//Büyükten küçüğe
+        for(String temp:cloneCity){
+            System.out.println(_15_4_SpecialColor.YELLOW+temp+_15_4_SpecialColor.RESET);
+        }
+
+        //binary search
+
+        String searchCity="sivas";
+        int index=Arrays.binarySearch(cloneCity,searchCity);
+        if(index>=0){
+            System.out.println(cloneCity[index]+"Bulundu");
+        }else{
+            System.out.println("bulunamadı");
+        }
+
+
+    }
+
+
     //Random Number
     public static int randomNumber(){
         Random random=new Random();
@@ -65,7 +91,7 @@ public class _16_1_Arrays {
     }
 
     //fill metotu tek bir degeri tum elemanlara atamak için kullanılır
-    public static void arrayMethod7(){
+    public static void arrayMethod8(){
         int [] number=new int[7];
         //fill metotu tek bir degeri tum elemanlara atamak için kullanılır
         Arrays.fill(number,randomNumber());//fill doldurmak için kullanılıyor
@@ -82,6 +108,7 @@ public class _16_1_Arrays {
         }
     }
 
+    //binary searh ,
 
 
     public static void main(String[] args) {
@@ -92,5 +119,6 @@ public class _16_1_Arrays {
         //arrayMethod5();
         //arrayMethod6();
         arrayMethod7();
+        //arrayMethod8();
     }
 }
