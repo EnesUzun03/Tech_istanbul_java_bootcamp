@@ -1,6 +1,9 @@
 package com.enesuzun._2_week;
 
+import java.text.Collator;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
 
 public class _16_1_Arrays {
     public static String[] arrayMethod() throws ArrayIndexOutOfBoundsException{
@@ -38,6 +41,7 @@ public class _16_1_Arrays {
             System.out.println(_15_4_SpecialColor.YELLOW+temp+_15_4_SpecialColor.RESET);
         }
     }
+
     public static void arrayMethod5(){
         String [] city=arrayMethod2();
         Arrays.sort(city);//Kücükten buyuğe sıaralama
@@ -45,12 +49,48 @@ public class _16_1_Arrays {
             System.out.println(_15_4_SpecialColor.YELLOW+temp+_15_4_SpecialColor.RESET);
         }
     }
+    //
+    public static void arrayMethod6(){
+        String [] city=arrayMethod2();
+        Arrays.sort(city, Collections.reverseOrder());//Büyükten küçüğe
+        for(String temp:city){
+            System.out.println(_15_4_SpecialColor.YELLOW+temp+_15_4_SpecialColor.RESET);
+        }
+    }
+    //Random Number
+    public static int randomNumber(){
+        Random random=new Random();
+        int rndInt=random.nextInt(9)+1;
+        return rndInt;
+    }
+
+    //fill metotu tek bir degeri tum elemanlara atamak için kullanılır
+    public static void arrayMethod7(){
+        int [] number=new int[7];
+        //fill metotu tek bir degeri tum elemanlara atamak için kullanılır
+        Arrays.fill(number,randomNumber());//fill doldurmak için kullanılıyor
+
+        //iterative for ile her defasında farklı bir sayı üretsin
+        for(int i=0;i<number.length;i++){
+            //number[i]=randomNumber();//birinci yol
+            Arrays.setAll(number,data ->randomNumber());
+
+        }
+
+        for(int temp : number){
+            System.out.println(_15_4_SpecialColor.YELLOW+temp+_15_4_SpecialColor.RESET);
+        }
+    }
+
+
 
     public static void main(String[] args) {
         //arrayMethod();
         //arrayMethod2();
         //arrayMethod3();
         //arrayMethod4();
-        arrayMethod5();
+        //arrayMethod5();
+        //arrayMethod6();
+        arrayMethod7();
     }
 }
