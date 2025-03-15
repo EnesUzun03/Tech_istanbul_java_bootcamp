@@ -2,11 +2,9 @@ package com.enesuzun._2_week;
 /*Kullanıcıdan alınan int degerin faktoriyelini hesaplama itterative ve recursive yoşlla*/
 
 
-import com.google.protobuf.DescriptorProtos;
-
 import java.util.Scanner;
 
-public class Week2_Examples_3 {
+public class Week3_Examples_3 {
     public static int fakHesapla(int a){
         if(a==0){
             return 1;
