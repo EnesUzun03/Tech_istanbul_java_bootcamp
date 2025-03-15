@@ -7,17 +7,12 @@ import com.google.protobuf.DescriptorProtos;
 import java.util.Scanner;
 
 public class Week2_Examples_3 {
-
     public static int fakHesapla(int a){
-
         if(a==0){
             return 1;
         }
         return a*fakHesapla(a-1);
     }
-
-
-
     public static void main(String[] args) {
         Scanner scanner=new Scanner(System.in);
         int sayi,fak=1,Hak=0;
@@ -45,8 +40,6 @@ public class Week2_Examples_3 {
                 System.out.println("harf girdiniz");
                 break;
             }
-
-
 /*
         //iterative yolla
         for (int i=1;i<=sayi;i++){
