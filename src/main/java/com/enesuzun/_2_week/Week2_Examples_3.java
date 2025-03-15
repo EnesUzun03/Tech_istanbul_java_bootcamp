@@ -16,6 +16,8 @@ public class Week2_Examples_3 {
         return a*fakHesapla(a-1);
     }
 
+
+
     public static void main(String[] args) {
         Scanner scanner=new Scanner(System.in);
         int sayi,fak=1,Hak=0;
