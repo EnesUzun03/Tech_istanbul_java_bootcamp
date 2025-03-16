@@ -93,16 +93,43 @@ public class Week3_05_Class_BEAN {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    //4. İsimde noktalama işaretleri olup olmadığını kontrol etsin varsa sonrasını silsin
+
+    //2. İsim birlikte ayarlanırken, isim baş harfi büyük geri kalan küçük olacak şekilde ayarlanabilir mi?
+
+    public void setName(String name) throws IllegalAccessException {
+        if(name.matches(".*;,:<>!'#%&.*")){
+            //throw new IllegalAccessException("isimde noktalama işareti var");
+            System.err.println("isimde noktalama işareti var");
+        }
+        if(name!=null) {
+            this.name=name.substring(0,1).toUpperCase()+name.substring(1,name.length()).toLowerCase();
+        }else{
+            this.name="bla";
+        }
     }
+
+    //surname
+
+
+
+    /*1.
+    Kullanıcının Soyisminin ilk üç harfini büyük yazınız ve soyisimi eğer 3 harften fazlaysa geri kalan harflerinin yerine yıldız (*)
+    Hamit MIZRAK , Hamit MIZ***(Maskeleme)
+    Tip(loop, conditional)*/
 
     public String surname() {
         return surname;
     }
 
     public void setSurname(String surname) {
-        this.surname = surname;
+        if(surname!=null && surname.length()>=3){
+            this.surname=surname.substring(0,3).toUpperCase()+"*".repeat(surname.length()-3);//repeat tekrar etmektir;
+        } else if (surname!=null) {
+            this.surname=surname.toUpperCase();
+        }else{
+            this.surname="";
+        }
     }
 
     public Date createdDate() {
@@ -115,21 +142,25 @@ public class Week3_05_Class_BEAN {
 
     public static void main(String[] args) {
         Week3_05_Class_BEAN bean=new Week3_05_Class_BEAN();
-        bean.setName("Enes");
+        bean.setName("ENES,Eren");
         bean.setId(12L);
         bean.setSurname("UZUN");
+
         System.out.println(bean);
 
         System.out.println("############################################");
 
+        /*
+
         Week3_05_Class_BEAN bean2=new Week3_05_Class_BEAN("Enes","UZUN");
         System.out.println(bean2);
 
-        System.out.println("############################################");
+        */
 
-        /*1. Kullanıcının Soyisminin ilk üç harfini büyük yazınız ve soyisimi eğer 3 harften fazlaysa geri kalan harflerinin yerine yıldız (*)
-             Hamit MIZRAK , Hamit MIZ***(Maskeleme)
-             Tip(loop, conditional)*/
+
+        //System.out.println("############################################");
+
+
 
 
 
