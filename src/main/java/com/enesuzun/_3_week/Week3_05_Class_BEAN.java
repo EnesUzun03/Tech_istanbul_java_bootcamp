@@ -97,16 +97,17 @@ public class Week3_05_Class_BEAN {
 
     //2. İsim birlikte ayarlanırken, isim baş harfi büyük geri kalan küçük olacak şekilde ayarlanabilir mi?
 
-    public void setName(String name) throws IllegalAccessException {
-        if(name.matches(".*;,:<>!'#%&.*")){
+    public void setName(String _name){
+        //if(name.matches(".*;,:<>!'#%&.*")){
             //throw new IllegalAccessException("isimde noktalama işareti var");
-            System.err.println("isimde noktalama işareti var");
-        }
-        if(name!=null) {
+            //System.err.println("isimde noktalama işareti var");
+        /*}
+        if(_name != null) {
             this.name=name.substring(0,1).toUpperCase()+name.substring(1,name.length()).toLowerCase();
         }else{
             this.name="bla";
-        }
+        }*/
+        this.name=_name;
     }
 
     //surname
@@ -142,7 +143,7 @@ public class Week3_05_Class_BEAN {
 
     public static void main(String[] args) {
         Week3_05_Class_BEAN bean=new Week3_05_Class_BEAN();
-        bean.setName("ENES,Eren");
+        bean.setName("ENES");
         bean.setId(12L);
         bean.setSurname("UZUN");
 
