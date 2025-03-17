@@ -1,10 +1,13 @@
 package com.enesuzun.project_step2_file;
 
 //Öğrenci yönetim sistemi
+//Not Enum kısmını kontrol eteceğim değişmiyor
 
 import com.enesuzun.utils.SpecialColor;
 
+import java.awt.*;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -42,7 +45,9 @@ public class StudentManagementSystem {
     /////////////////////////////////////////////////
     //Ogrenci Ekle
     public void add(StudentDto dto){
-        studentDtoList.add(new StudentDto(++studentCounter,dto.name(),dto.surname(),dto.midTerm(),dto.finalTerm(),dto.birthDay()));
+        studentDtoList.add(
+                new StudentDto(++studentCounter,dto.name(),dto.surname(),dto.midTerm(),
+                        dto.finalTerm(),dto.birthDay(),dto.eStudentType()));
         System.out.println(SpecialColor.BLUE+"Ogrenci eklendi"+SpecialColor.RESET);
         //Ogrenci ekelemenin file'a de yapılması gerekli
         saveToFile();
@@ -89,10 +94,13 @@ public class StudentManagementSystem {
             if (temp.id()==id){
                 temp.setName(dto.name());
                 temp.setSurname(dto.surname());
-                temp.setGrade(dto.grade());
+                temp.setMidTerm(dto.midTerm());
+                temp.setFinalTerm(dto.finalTerm());
                 temp.setBirthDay(dto.birthDay());
-                System.out.println("Ogrenci güncellendi");
+                temp.seteStudentType(dto.eStudentType());
+                System.out.println(SpecialColor.BLUE+ temp +"Ogrenci Bilgileri güncellendi güncellendi"+SpecialColor.RESET);
 
+                //Dosyaya Kaydet
                 saveToFile();
                 return;
             }
@@ -102,9 +110,14 @@ public class StudentManagementSystem {
     }
     //Ogrenci sil
     public void delete(int id){
-        studentDtoList.removeIf(temp-> temp.id()==id);
-        System.out.println(SpecialColor.BLUE+id+"'li Ogrenci silindi"+SpecialColor.RESET);
-        saveToFile();
+        //studentDtoList.removeIf(temp-> temp.id()==id);
+        boolean removed = studentDtoList.removeIf(temp->temp.id()==id);
+        if(removed){
+            System.out.println(SpecialColor.BLUE+" Ogrenci silindi "+SpecialColor.RESET);
+            saveToFile();
+        }else{
+            System.out.println(SpecialColor.RED+"Ogrenci silinmedi "+SpecialColor.RESET);
+        }
     }
 
 
@@ -152,6 +165,23 @@ public class StudentManagementSystem {
     //ogrenci siralaması(Dogum gunu)
 
     /////////////////////////////////////////////////
+    //Enum ogrenci turu metodu
+    private EStudentType studentTypeMethod(){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Ogrenci türünü seciniz\n1-Lisans \n2- Yuksek lisan \n3- Doktora");
+        int typeChooise=scanner.nextInt();
+        EStudentType switchCaseStudent=switch (typeChooise){
+            case 1 -> EStudentType.GRADUATE;
+            case 2 -> EStudentType.UNDERGRADUATE;
+            case 3 -> EStudentType.PHD;
+            default -> EStudentType.OTHER;
+        };
+        return switchCaseStudent;
+    }
+
+
+
+    /////////////////////////////////////////////////
 
     //Console Seçim (Ogrenci ekle)
     public void chooise(){
@@ -161,48 +191,118 @@ public class StudentManagementSystem {
 
         //sonsuz While
         while(true){
-            System.out.println("\n 1-Ogrenci ekle");
-            System.out.println("\n 2-Ogrenci listele");
-            System.out.println("\n 3-Ogrenci ara");
-            System.out.println("\n 4-Ogrenci Güncelle");
-            System.out.println("\n 5-Ogrenci Sil");
-            System.out.println("\n 6-Ogrenci toplam ogrenci saysisi");
-            System.out.println("\n 7-Ogrenci Rastgele");
-            System.out.println("\n 8-Ogrenci ekleNot hesapla");
-            System.out.println("\n 9-Ogrenci Em yuksek, En düsük notları göster");
-            System.out.println("\n 10-Ogrenci ogrenci sirala (dogum gününe göre)");
-            System.out.println("\n 11- Çikis");
-            System.out.println("\nLütfen seçiminizi yapımız");
+            studentManagementSystem.list();
 
+            System.out.println(SpecialColor.YELLOW+"\n 1-Ogrenci ekle");
+            System.out.println("2-Ogrenci listele");
+            System.out.println(" 3-Ogrenci ara");
+            System.out.println(" 4-Ogrenci Güncelle");
+            System.out.println(" 5-Ogrenci Sil");
+            System.out.println(" 6-Ogrenci toplam ogrenci saysisi");
+            System.out.println(" 8-Ogrenci ekleNot hesapla");
+            System.out.println(" 7-Ogrenci Rastgele");
+            System.out.println(" 9-Ogrenci Em yuksek, En düsük notları göster");
+            System.out.println(" 10-Ogrenci ogrenci sirala (dogum gününe göre)");
+            System.out.println(" 11- Çikis"+SpecialColor.RESET);
+            System.out.println(SpecialColor.CYAN+"Lütfen seçiminizi yapımız"+SpecialColor.RESET);
+
+            //Secim yapacak
             int choosie=scanner.nextInt();
             scanner.nextLine();//durma yeri olacak
-            StudentDto studentDto = new StudentDto();
-            String name,surname;
-            String birthDay;
-            Double grade;
 
-
+            //karar
             switch (choosie){
-                case 1:
+                case 1://Ogrenci ekle
                     System.out.println("Ogrenci adini");
-                    name=scanner.nextLine();
+                    String name=scanner.nextLine();
                     System.out.println("Ogrenci soyadini");
-                    surname=scanner.nextLine();
+                    String surname=scanner.nextLine();
                     System.out.println("Ogrenci dogum tarihi");
-                    birthDay=scanner.nextLine().toString();
-                    System.out.println("Ogrenci Puanı");
-                    grade=scanner.nextDouble();
-                    studentDto.setId(studentCounter);
-                    studentDto.setName(name);
-                    studentDto.setSurname(surname);
-                    studentDto.setCreatedDate(new Date(System.currentTimeMillis()));
-                    //studentDto.setBirthDay(birthDay);
-                    studentDto.setGrade(grade);
-                    studentManagementSystem.add(studentDto);
-                    break;
-                case 2:
-                    studentManagementSystem.list();
+                    System.out.println("tarih şoyle olamalı YYYY MM DD");
+                    LocalDate birthDay=LocalDate.parse(scanner.nextLine());
 
+                    System.out.println("Vize Puanı");
+                    double midTerm=scanner.nextDouble();
+
+                    System.out.println("Final Puanı");
+                    double finalTerm=scanner.nextDouble();
+
+                    studentManagementSystem.add(new StudentDto(++studentCounter,name,surname,midTerm,finalTerm,birthDay,studentTypeMethod()));
+                    break;
+                case 2://Ogrenci Listelemek
+                    studentManagementSystem.list();
+                    break;
+                case 3://Ogrenci ara
+                    studentManagementSystem.list();
+                    System.out.println(SpecialColor.BLUE+" Aranacak ogrenci ismini yazınız "+SpecialColor.RESET);
+                    String searchNmae=scanner.nextLine();
+                    studentManagementSystem.search(searchNmae);
+                    break;
+                case 4://Ogrenci Güncelle
+                    studentManagementSystem.list();
+                    System.out.println(" Güncelleme Yapılacak kisinin ıd sini yaz");
+                    int id =scanner.nextInt();
+
+                    scanner.nextLine();//Eger ınt sonrasi String gelecekse bunu yazmalıyız
+
+
+                    System.out.println("Yeni Ogrenci adini");
+                    String nameUpdate=scanner.nextLine();
+
+                    System.out.println("Yeni Ogrenci soyadini");
+                    String surnameUpdate=scanner.nextLine();
+
+                    System.out.println("yeni Ogrenci dogum tarihi");
+                    LocalDate birthDayUpdate=LocalDate.parse(scanner.nextLine());
+
+                    System.out.println("yani Vize Puanı");
+                    double midTermUpdate=scanner.nextDouble();
+
+                    System.out.println("Yeni Final Puanı");
+                    double finalTermUpdate=scanner.nextDouble();
+
+                    StudentDto studentDtoUpdate =StudentDto.builder()
+                            .name(nameUpdate)
+                            .surname(surnameUpdate)
+                            .midTerm(midTermUpdate)
+                            .finalTerm(finalTermUpdate)
+                            .birthDay(birthDayUpdate)
+                            .eStudentType(studentTypeMethod())
+                            .build();
+                    try{
+                        studentManagementSystem.update(id,studentDtoUpdate);
+                    }catch (StudentNotExcaption e){
+                        System.out.println(SpecialColor.RED+e.getMessage()+SpecialColor.RESET);
+                    }
+                    break;
+                case 5://Ogrenci sil
+                    studentManagementSystem.list();
+                    System.out.println(SpecialColor.BLUE+" Silinecek ogrenci idsi "+SpecialColor.RESET);
+                    int deleteId=scanner.nextInt();
+                    studentManagementSystem.delete(deleteId);
+                    break;
+                case 6:
+                    System.out.println("Case 6");
+                    break;
+                case 7:
+                    System.out.println("Case");
+                    break;
+                case 8:
+                    System.out.println("Case");
+                    break;
+                case 9:
+                    System.out.println("Case");
+                    break;
+                case 10:
+                    System.out.println("Case");
+                    break;
+                case 11:
+                    System.out.println("sistemden çikis yapılıyopr");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Gecersiz seçim yaptınız tekrar deneyiniz");
+                    break;
 
             }
 
