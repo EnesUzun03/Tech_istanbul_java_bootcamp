@@ -1,4 +1,4 @@
-package com.enesuzun.project_step1_file;
+package com.enesuzun.project_step2_file;
 
 import com.enesuzun.utils.SpecialColor;
 import lombok.AllArgsConstructor;
@@ -48,6 +48,7 @@ public class StudentDto implements Serializable {
         this.midTerm = midTerm;
         this.finalTerm = finalTerm;
         this.birthDay = birthDay;
+        this.createdDate=new Date(System.currentTimeMillis());
         this.resaultTerm=calculateResault();
 
         }
