@@ -34,7 +34,7 @@ public class StudentManagementSystem {
 
     //ogrenci listesini yükle
     private void loadStudentListFromFile() {
-
+        creatFileIfNotExists();
     }
 
     /////////////////////////////////////////////////
@@ -122,9 +122,23 @@ public class StudentManagementSystem {
 
 
     /////////////////////////////////////////////////
+    //FileIO
+    //File if not exist (Eğer student.txt yapısı yoksa olustur)
+    //Bu dosya oluşmama hatasını çözmek için ama bende boyle bir hata olamadı hoca ekledi
+    private void creatFileIfNotExists(){
+        File file=new File(FILE_NAME);
+        if(!file.exists()){
+            try {
+                file.createNewFile();//dosya yoksa olustur
+                System.out.println(SpecialColor.BLUE+ FILE_NAME + "olusturuldu  " +SpecialColor.RESET);
 
+            }catch (IOException ioException){
+                System.out.println(SpecialColor.RED + "Dosya olusuturlurken hata oldu " +SpecialColor.RESET);
+                ioException.printStackTrace();
+            }
+        }
 
-    //FileIO creat
+    }
     //File Creat
     private void saveToFile() {
         //File işlemimde mutlaka try catch yazılmalıdır
