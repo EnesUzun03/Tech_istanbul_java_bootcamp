@@ -1,8 +1,11 @@
-package com.enesuzun.project.step2;
+package com.enesuzun.dao;
 
 //Öğrenci yönetim sistemi
 //Not Enum kısmını kontrol eteceğim değişmiyor
 
+import com.enesuzun.dto.StudentDto;
+import com.enesuzun.project.step3.EStudentType;
+import com.enesuzun.project.step3.StudentNotExcaption;
 import com.enesuzun.utils.SpecialColor;
 
 import java.io.*;
@@ -10,7 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class StudentManagementSystem {
+public class StudentDao {
     //Ogerncileri eklemek için kullanacağız
     //Field
     //dizi ile nerdeyse aynı sadece boyutu belli degil
@@ -25,7 +28,7 @@ public class StudentManagementSystem {
     }
 
     //parametresiz constructer
-    public StudentManagementSystem() {
+    public StudentDao() {
         //program başlarken ogrenci listesini yüklesin
         loadStudentListFromFile();
     }
@@ -198,12 +201,12 @@ public class StudentManagementSystem {
     //Console Seçim (Ogrenci ekle)
     public void chooise(){
         Scanner scanner=new Scanner(System.in);
-        StudentManagementSystem studentManagementSystem=new
-                StudentManagementSystem();
+        StudentDao studentDao =new
+                StudentDao();
 
         //sonsuz While
         while(true){
-            studentManagementSystem.list();
+            studentDao.list();
 
             System.out.println(SpecialColor.YELLOW+"\n 1-Ogrenci ekle");
             System.out.println("2-Ogrenci listele");
@@ -239,19 +242,19 @@ public class StudentManagementSystem {
                     System.out.println("Final Puanı");
                     double finalTerm=scanner.nextDouble();
 
-                    studentManagementSystem.add(new StudentDto(++studentCounter,name,surname,midTerm,finalTerm,birthDay,studentTypeMethod()));
+                    studentDao.add(new StudentDto(++studentCounter,name,surname,midTerm,finalTerm,birthDay,studentTypeMethod()));
                     break;
                 case 2://Ogrenci Listelemek
-                    studentManagementSystem.list();
+                    studentDao.list();
                     break;
                 case 3://Ogrenci ara
-                    studentManagementSystem.list();
+                    studentDao.list();
                     System.out.println(SpecialColor.BLUE+" Aranacak ogrenci ismini yazınız "+SpecialColor.RESET);
                     String searchNmae=scanner.nextLine();
-                    studentManagementSystem.search(searchNmae);
+                    studentDao.search(searchNmae);
                     break;
                 case 4://Ogrenci Güncelle
-                    studentManagementSystem.list();
+                    studentDao.list();
                     System.out.println(" Güncelleme Yapılacak kisinin ıd sini yaz");
                     int id =scanner.nextInt();
 
@@ -273,7 +276,7 @@ public class StudentManagementSystem {
                     System.out.println("Yeni Final Puanı");
                     double finalTermUpdate=scanner.nextDouble();
 
-                    StudentDto studentDtoUpdate =StudentDto.builder()
+                    StudentDto studentDtoUpdate = StudentDto.builder()
                             .name(nameUpdate)
                             .surname(surnameUpdate)
                             .midTerm(midTermUpdate)
@@ -282,16 +285,16 @@ public class StudentManagementSystem {
                             .eStudentType(studentTypeMethod())
                             .build();
                     try{
-                        studentManagementSystem.update(id,studentDtoUpdate);
+                        studentDao.update(id,studentDtoUpdate);
                     }catch (StudentNotExcaption e){
                         System.out.println(SpecialColor.RED+e.getMessage()+SpecialColor.RESET);
                     }
                     break;
                 case 5://Ogrenci sil
-                    studentManagementSystem.list();
+                    studentDao.list();
                     System.out.println(SpecialColor.BLUE+" Silinecek ogrenci idsi "+SpecialColor.RESET);
                     int deleteId=scanner.nextInt();
-                    studentManagementSystem.delete(deleteId);
+                    studentDao.delete(deleteId);
                     break;
                 case 6:
                     System.out.println("Case 6");

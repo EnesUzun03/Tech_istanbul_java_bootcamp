@@ -1,4 +1,4 @@
-package com.enesuzun.project.step3;
+package com.enesuzun.exception;
 
 //Ogrenci bulunmazsa fırlayacak ozel excaption
 public class StudentNotExcaption extends RuntimeException {

@@ -1,4 +1,4 @@
-package com.enesuzun.project.step3;
+package com.enesuzun.utils;
 
 //Ogrenci türleri   Lisans , yükseklisans , doktora
 public enum EStudentType {
