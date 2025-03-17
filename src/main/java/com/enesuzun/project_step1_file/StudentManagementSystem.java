@@ -1,3 +1,4 @@
+/*
 package com.enesuzun.project_step1_file;
 
 //Öğrenci yönetim sistemi
@@ -208,3 +209,4 @@ public class StudentManagementSystem {
 
 
 
+*/

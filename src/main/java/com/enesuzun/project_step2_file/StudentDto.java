@@ -8,6 +8,7 @@ import lombok.ToString;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.PrimitiveIterator;
 
 //LOMBOK
 @AllArgsConstructor
@@ -21,6 +22,7 @@ public class StudentDto implements Serializable {
     private Integer id;
     private String name;
     private String surname;
+    private EStudentType eStudentType;  //Enum Ogrenci Cinsi
     private Double midTerm;   //Vize notu
     private Double finalTerm; //final notu
     private Double resaultTerm;//vize %40 final  %60 Bu sınav sonucu parametre olarak yollanmayacak
@@ -41,7 +43,7 @@ public class StudentDto implements Serializable {
     }
     //parametreli constructor
 
-    public StudentDto(Integer id, String name, String surname, Double midTerm, Double finalTerm, LocalDate birthDay) {
+    public StudentDto(Integer id, String name, String surname, Double midTerm, Double finalTerm, LocalDate birthDay,EStudentType estudentType) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -50,6 +52,7 @@ public class StudentDto implements Serializable {
         this.birthDay = birthDay;
         this.createdDate=new Date(System.currentTimeMillis());
         this.resaultTerm=calculateResault();
+        this.eStudentType=estudentType;
 
         }
 
@@ -128,5 +131,13 @@ public class StudentDto implements Serializable {
 
     public void setResaultTerm(Double resaultTerm) {
         this.resaultTerm = resaultTerm;
+    }
+
+    public EStudentType eStudentType() {
+        return eStudentType;
+    }
+
+    public void seteStudentType(EStudentType eStudentType) {
+        this.eStudentType = eStudentType;
     }
 }//end
