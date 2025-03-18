@@ -1,6 +1,6 @@
 package com.enesuzun.tutorials._4_week;
 
-import com.enesuzun.project.step2.EStudentType;
+import com.enesuzun.dto.EStudentType;
 
 public class Week4_01_Enum {
     public static void main(String[] args) {

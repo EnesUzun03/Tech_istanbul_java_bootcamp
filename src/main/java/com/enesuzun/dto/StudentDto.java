@@ -1,6 +1,5 @@
 package com.enesuzun.dto;
 
-import com.enesuzun.project.step3.EStudentType;
 import com.enesuzun.utils.SpecialColor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

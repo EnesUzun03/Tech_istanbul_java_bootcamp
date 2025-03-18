@@ -3,9 +3,9 @@ package com.enesuzun.dao;
 //Öğrenci yönetim sistemi
 //Not Enum kısmını kontrol eteceğim değişmiyor
 
+import com.enesuzun.dto.EStudentType;
 import com.enesuzun.dto.StudentDto;
-import com.enesuzun.project.step3.EStudentType;
-import com.enesuzun.project.step3.StudentNotExcaption;
+import com.enesuzun.exception.StudentNotExcaption;
 import com.enesuzun.utils.SpecialColor;
 
 import java.io.*;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class StudentDao {
+public class StudentDao implements IDaoGenerics<StudentDto>{
     //Ogerncileri eklemek için kullanacağız
     //Field
     //dizi ile nerdeyse aynı sadece boyutu belli degil
@@ -45,30 +45,33 @@ public class StudentDao {
 
     /////////////////////////////////////////////////
     //Ogrenci Ekle
-    public void add(StudentDto dto){
+    @Override
+    public StudentDto creat(StudentDto studentDto) {
         studentDtoList.add(
-                new StudentDto(++studentCounter,dto.name(),dto.surname(),dto.midTerm(),
-                        dto.finalTerm(),dto.birthDay(),dto.eStudentType()));
+                new StudentDto(++studentCounter,studentDto.name(),studentDto.surname(),studentDto.midTerm(),
+                        studentDto.finalTerm(),studentDto.birthDay(),studentDto.eStudentType()));
         System.out.println(SpecialColor.BLUE+"Ogrenci eklendi"+SpecialColor.RESET);
         //Ogrenci ekelemenin file'a de yapılması gerekli
         saveToFile();
-
+        return studentDto;
     }
     //ogrenci Listesi
-    public void list(){
+    @Override
+    public ArrayList<StudentDto> list() {
         //Ogrenci Listesi boşsa
         if(studentDtoList.isEmpty()){
             System.out.println(SpecialColor.RED+"Listeniz boştur"+SpecialColor.RESET);
-            return;
+            throw new StudentNotExcaption("Ogrenci Yok");
         }else{
             System.out.println(SpecialColor.BLUE+ " Ogrenci Listesi " +SpecialColor.RESET);
             studentDtoList.forEach(System.out::println);//Java 8 ile geldi tek satırda tüm çıktıyı almaya yarıyor
 
         }
-
+        return studentDtoList;
     }
     //Ogrenci ara
-    public void search(String name){
+    @Override
+    public StudentDto findbyNama(String name) {
         boolean found=studentDtoList
                 .stream()
                 .filter(temp -> temp.name().equalsIgnoreCase(name))
@@ -78,7 +81,7 @@ public class StudentDao {
         if(!found){
             throw new StudentNotExcaption(name+ "adlı Ogrenci bulunamadı");
         }
-
+        return null;
 
         /*//filter sqldeki where gibi filtrelemeyi sağlar
         studentDtoList.stream()
@@ -90,27 +93,28 @@ public class StudentDao {
          */
     }
     //Ogrenci güncelle
-    public void update(int id, StudentDto dto){
+    @Override
+    public StudentDto update(int id, StudentDto studentDto) {
         for (StudentDto temp:studentDtoList){
             if (temp.id()==id){
-                temp.setName(dto.name());
-                temp.setSurname(dto.surname());
-                temp.setMidTerm(dto.midTerm());
-                temp.setFinalTerm(dto.finalTerm());
-                temp.setBirthDay(dto.birthDay());
-                temp.seteStudentType(dto.eStudentType());
+                temp.setName(studentDto.name());
+                temp.setSurname(studentDto.surname());
+                temp.setMidTerm(studentDto.midTerm());
+                temp.setFinalTerm(studentDto.finalTerm());
+                temp.setBirthDay(studentDto.birthDay());
+                temp.seteStudentType(studentDto.eStudentType());
                 System.out.println(SpecialColor.BLUE+ temp +"Ogrenci Bilgileri güncellendi güncellendi"+SpecialColor.RESET);
 
                 //Dosyaya Kaydet
                 saveToFile();
-                return;
             }
         }
         System.out.println(SpecialColor.RED+"Ogrenci bulunamdaı"+SpecialColor.RESET);
-
+        return studentDto;
     }
     //Ogrenci sil
-    public void delete(int id){
+    @Override
+    public StudentDto delete(int id) {
         //studentDtoList.removeIf(temp-> temp.id()==id);
         boolean removed = studentDtoList.removeIf(temp->temp.id()==id);
         if(removed){
@@ -119,8 +123,8 @@ public class StudentDao {
         }else{
             System.out.println(SpecialColor.RED+"Ogrenci silinmedi "+SpecialColor.RESET);
         }
+        return null;
     }
-
 
     /////////////////////////////////////////////////
     //FileIO
@@ -199,6 +203,7 @@ public class StudentDao {
     /////////////////////////////////////////////////
 
     //Console Seçim (Ogrenci ekle)
+    @Override
     public void chooise(){
         Scanner scanner=new Scanner(System.in);
         StudentDao studentDao =new
@@ -242,7 +247,7 @@ public class StudentDao {
                     System.out.println("Final Puanı");
                     double finalTerm=scanner.nextDouble();
 
-                    studentDao.add(new StudentDto(++studentCounter,name,surname,midTerm,finalTerm,birthDay,studentTypeMethod()));
+                    studentDao.creat(new StudentDto(++studentCounter,name,surname,midTerm,finalTerm,birthDay,studentTypeMethod()));
                     break;
                 case 2://Ogrenci Listelemek
                     studentDao.list();
@@ -251,7 +256,7 @@ public class StudentDao {
                     studentDao.list();
                     System.out.println(SpecialColor.BLUE+" Aranacak ogrenci ismini yazınız "+SpecialColor.RESET);
                     String searchNmae=scanner.nextLine();
-                    studentDao.search(searchNmae);
+                    studentDao.findbyNama(searchNmae);
                     break;
                 case 4://Ogrenci Güncelle
                     studentDao.list();
@@ -324,6 +329,8 @@ public class StudentDao {
         }
 
     }
+
+
 
 
 }
