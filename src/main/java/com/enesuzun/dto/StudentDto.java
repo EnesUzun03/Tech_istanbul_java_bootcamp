@@ -1,5 +1,7 @@
 package com.enesuzun.dto;
 
+import com.enesuzun.utils.SpecialColor;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.logging.Logger;

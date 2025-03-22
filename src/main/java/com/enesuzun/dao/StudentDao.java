@@ -1,6 +1,8 @@
 package com.enesuzun.dao;
 
+import com.enesuzun.dto.EStudentType;
 import com.enesuzun.dto.StudentDto;
+import com.enesuzun.exception.StudentNotFoundException;
 import com.enesuzun.utils.SpecialColor;
 
 import java.time.LocalDate;
@@ -294,7 +296,7 @@ public class StudentDao implements IDaoGenerics<StudentDto> {
                     System.out.println(SpecialColor.BLUE + temp + " Öğrenci Bilgileri Güncellendi" + SpecialColor.RESET);
                     // Dosyaya kaydet
                     this.fileHandler.writeFile(studentToCsv(studentDto));
-                    return Optional.of(studentDto);
+                    return Optional.of(studentDto);//burada ofun anlamı burada bir değer var anlamında
                 }
             }
             // throw new RegisterNotFoundException("⚠️ Güncellenecek öğrenci bulunamadı, ID: " + id);

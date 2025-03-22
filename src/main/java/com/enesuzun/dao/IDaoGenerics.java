@@ -9,6 +9,7 @@ import java.util.Optional;
  */
 public interface IDaoGenerics<T> {
     Optional<T> create(T entity);
+    //liste için optional kullanmaya gerk yoktur
     List<T> list();
     Optional<T> findByName(String name);
     Optional<T> findById(int id);
