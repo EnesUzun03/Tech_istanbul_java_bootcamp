@@ -1,5 +1,6 @@
 package com.enesuzun.dto;
 
+import com.enesuzun.utils.ERole;
 import com.enesuzun.utils.SpecialColor;
 
 import java.io.Serializable;
