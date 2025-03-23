@@ -316,8 +316,8 @@ public class StudentDao implements IDaoGenerics<StudentDto> {
     @Override
     public Optional<StudentDto> delete(int id) {
         Optional<StudentDto> studentToDelete = findById(id);
-        if (studentToDelete.isPresent()) {
-            studentDtoList.remove(studentToDelete.get());
+        if (studentToDelete.isPresent()) {//veri varsa
+            studentDtoList.remove(studentToDelete.get());//liste içinde remove yapacak
             logger.info("✅ Öğrenci silindi, ID: " + id);
             System.out.println(SpecialColor.BLUE + "Öğrenci Silindi" + SpecialColor.RESET);
             // Silinen Öğrenciyi dosyaya kaydet
