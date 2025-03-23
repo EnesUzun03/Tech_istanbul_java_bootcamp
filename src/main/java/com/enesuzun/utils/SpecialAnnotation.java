@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD}) // Yalnızca metotlara uygulanabilir
 
 
-public @interface LogExecutionTime {
+public @interface SpecialAnnotation {
 
 
 }
@@ -18,7 +18,7 @@ class Test {
         this.name = name;
     }
 
-    @LogExecutionTime
+    @SpecialAnnotation
     public static void process() {
         System.out.println("Bu metot loglanacak.");
     }

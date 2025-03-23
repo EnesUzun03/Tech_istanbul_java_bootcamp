@@ -3,7 +3,7 @@ package com.enesuzun.controller;
 import com.enesuzun.dao.IDaoGenerics;
 import com.enesuzun.dao.StudentDao;
 import com.enesuzun.dto.StudentDto;
-import com.enesuzun.utils.LogExecutionTime;
+import com.enesuzun.utils.SpecialAnnotation;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +20,7 @@ public class StudentController implements IDaoGenerics<StudentDto> {
     }
 
     @Override
-    @LogExecutionTime
+    @SpecialAnnotation
     public Optional<StudentDto> create(StudentDto studentDto) {
         if (studentDto == null || findByName(studentDto.getName()).isPresent()) {
             logger.warning("❌ Geçersiz veya mevcut olan öğrenci eklenemez");
@@ -34,7 +34,7 @@ public class StudentController implements IDaoGenerics<StudentDto> {
     }
 
     @Override
-    @LogExecutionTime
+    @SpecialAnnotation
     public Optional<StudentDto> findByName(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("❌ Geçersiz isim girdiniz");
@@ -43,7 +43,7 @@ public class StudentController implements IDaoGenerics<StudentDto> {
     }
 
     @Override
-    @LogExecutionTime
+    @SpecialAnnotation
     public Optional<StudentDto> findById(int id) {
         if (id <= 0) {
             throw new IllegalArgumentException("❌ Geçersiz ID girdiniz");
@@ -55,7 +55,7 @@ public class StudentController implements IDaoGenerics<StudentDto> {
     }
 
     @Override
-    @LogExecutionTime
+    @SpecialAnnotation
     public List<StudentDto> list() {
         List<StudentDto> studentDtoList = Optional.ofNullable(studentDao.list()).orElse(Collections.emptyList());
         if (studentDtoList.isEmpty()) {
@@ -65,7 +65,7 @@ public class StudentController implements IDaoGenerics<StudentDto> {
     }
 
     @Override
-    @LogExecutionTime
+    @SpecialAnnotation
     public Optional<StudentDto> update(int id, StudentDto studentDto) {
         if (id <= 0 || studentDto == null) {
             throw new IllegalArgumentException("❌ Güncelleme için geçerli bir öğrenci bilgisi giriniz");
@@ -74,7 +74,7 @@ public class StudentController implements IDaoGenerics<StudentDto> {
     }
 
     @Override
-    @LogExecutionTime
+    @SpecialAnnotation
     public Optional<StudentDto> delete(int id) {
         if (id <= 0) {
             throw new IllegalArgumentException("❌ Silmek için geçerli bir öğrenci ID giriniz");
