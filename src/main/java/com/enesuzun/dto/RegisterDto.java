@@ -55,14 +55,13 @@ public class RegisterDto {
         try {
             Cipher cipher = Cipher.getInstance(AES_ALGORITHM);
             cipher.init(Cipher.ENCRYPT_MODE, generateKey());
-            byte[] encryptedBytes = cipher.doFinal(password.getBytes(StandardCharsets.UTF_8));//Data verisini byte olarak al ve dönüştür
+            byte[] encryptedBytes = cipher.doFinal(password.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(encryptedBytes);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Şifreleme başarısız!", e);
             return null;
         }
     }
-    //aes şifre çöözme
 
     public static String decryptPassword(String encryptedPassword) {
         if (encryptedPassword == null || encryptedPassword.isBlank()) return null;
@@ -76,6 +75,9 @@ public class RegisterDto {
             return null;
         }
     }
+
+    /// /////////////////////////////////////////
+    /// Şifre doğrulama
 
     public boolean validatePassword(String inputPassword) {
         String decryptedPassword = decryptPassword(this.password);
@@ -126,3 +128,188 @@ public class RegisterDto {
     public TeacherDto getTeacherDto() { return teacherDto; }
     public void setTeacherDto(TeacherDto teacherDto) { this.teacherDto = teacherDto; }
 }
+
+
+/*
+
+
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class RegisterDto {
+
+    private static final Logger logger = Logger.getLogger(RegisterDto.class.getName());
+    private int id;
+    private String nickname;
+    private String emailAddress;
+    private String password;
+    private boolean isLocked;
+    private String role;
+    private StudentDto studentDto;
+    private TeacherDto teacherDto;
+
+    private static final String AES_ALGORITHM = "AES";
+    private static final String SECRET_KEY = "MY_16_BYTE_KEY_!";
+
+    public RegisterDto() {
+        this.id = 0;
+        this.nickname = "your_nickname";
+        this.emailAddress = "your_email@example.com";
+        this.password = "default_password";
+        this.role = "UNKNOWN";
+        this.isLocked = false;
+        this.studentDto = null;
+        this.teacherDto = null;
+    }
+
+    public RegisterDto(int id, String nickname, String emailAddress, String password, String role, boolean isLocked,
+                       StudentDto studentDto, TeacherDto teacherDto) {
+        this.id = id;
+        this.nickname = (nickname != null && !nickname.isBlank()) ? nickname.toLowerCase() : "unknown_user";
+        this.emailAddress = emailAddress;
+        this.password = encryptPassword(password);
+        this.role = (role != null && !role.isBlank()) ? role.toUpperCase() : "UNKNOWN";
+        this.isLocked = isLocked;
+        this.studentDto = studentDto;
+        this.teacherDto = teacherDto;
+    }
+
+    private static SecretKey generateKey() {
+        return new SecretKeySpec(SECRET_KEY.getBytes(StandardCharsets.UTF_8), AES_ALGORITHM);
+    }
+
+    //anahtar olusturma
+    public static String encryptPassword(String password) {
+        if (password == null || password.isBlank()) return null;
+        try {
+            Cipher cipher = Cipher.getInstance(AES_ALGORITHM);
+            cipher.init(Cipher.ENCRYPT_MODE, generateKey());
+            byte[] encryptedBytes = cipher.doFinal(password.getBytes(StandardCharsets.UTF_8));//Data verisini byte olarak al ve dönüştür
+            //return Base64.getEncoder().encodeToString(encryptedBytes);//1. yol
+            return Base64.getEncoder().encodeToString(encryptedBytes);//2.yol
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Şifreleme başarısız!", e);
+            return null;
+        }
+    }
+    //aes şifre çöözme
+
+    public static String decryptPassword(String encryptedPassword) {
+        if (encryptedPassword == null || encryptedPassword.isBlank()) return null;
+        try {
+            Cipher cipher = Cipher.getInstance(AES_ALGORITHM);
+            cipher.init(Cipher.DECRYPT_MODE, generateKey());
+            */
+/*byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(encryptedPassword));
+            return new String(decryptedBytes, StandardCharsets.UTF_8);//1.yol*//*
+
+            byte [] decodeBytes =Base64.getDecoder().decode(encryptedPassword);
+            byte [] decryptedBytes=cipher.doFinal(decodeBytes);
+            return new String(decryptedBytes,StandardCharsets.UTF_8);//2.yol
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Şifre çözme başarısız!", e);
+            return null;
+        }
+    }
+
+    public boolean validatePassword(String inputPassword) {
+        String decryptedPassword = decryptPassword(this.password);
+        if (decryptedPassword == null) {
+            logger.severe("Şifre çözme başarısız! Kullanıcı girişi doğrulanamadı.");
+            return false;
+        }
+        return decryptedPassword.equals(inputPassword);
+    }
+
+
+    public String getDecryptedPassword() {
+        return decryptPassword(this.password);
+    }
+
+    @Override
+    public String toString() {
+        return "RegisterDto{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", password='" + password + '\'' +
+                ", isLocked=" + isLocked +
+                ", role='" + role + '\'' +
+                ", studentDto=" + studentDto +
+                ", teacherDto=" + teacherDto +
+                '}';
+    }
+
+    public int id() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String nickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname.toLowerCase();
+    }
+
+    public String emailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+
+
+        //emailin nasıl belirleneceğini belirtiyorum
+        this.emailAddress = emailAddress.concat("ægmail.com");
+    }
+
+    public String password() {
+        return password;
+    };
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
+    }
+
+    public String role() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public StudentDto studentDto() {
+        return studentDto;
+    }
+
+    public void setStudentDto(StudentDto studentDto) {
+        this.studentDto = studentDto;
+    }
+
+    public TeacherDto teacherDto() {
+        return teacherDto;
+    }
+
+    public void setTeacherDto(TeacherDto teacherDto) {
+        this.teacherDto = teacherDto;
+    }
+}
+*/

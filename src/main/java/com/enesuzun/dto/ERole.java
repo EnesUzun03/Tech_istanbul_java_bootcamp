@@ -1,5 +1,8 @@
-package com.enesuzun.utils;
+package com.enesuzun.dto;
 
+/**
+ * 📌 Kullanıcı Rollerini Tanımlayan Enum
+ */
 public enum ERole {
     STUDENT("Öğrenci"),
     TEACHER("Öğretmen"),

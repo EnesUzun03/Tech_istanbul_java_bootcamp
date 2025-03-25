@@ -3,7 +3,7 @@ package com.enesuzun.controller;
 import com.enesuzun.dao.IDaoGenerics;
 import com.enesuzun.dao.StudentDao;
 import com.enesuzun.dto.StudentDto;
-import com.enesuzun.utils.SpecialAnnotation;
+import com.enesuzun.log.SpecialAnnotation;
 
 import java.util.Collections;
 import java.util.List;

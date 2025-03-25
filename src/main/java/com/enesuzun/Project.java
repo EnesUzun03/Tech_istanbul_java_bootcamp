@@ -1,6 +1,7 @@
 package com.enesuzun;
 
-import com.enesuzun.controller.StudentController;
+import com.enesuzun.controller.LoginRegisterController;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -8,7 +9,7 @@ import java.util.logging.Logger;
  * 📌 Ana Program Çalıştırıcı (Main Class)
  * Kullanıcı giriş ve kayıt işlemlerini başlatır.
  */
-public class Main {
+public class Project {
 
     private static final Logger logger = Logger.getLogger(Project.class.getName());
 
@@ -29,12 +30,3 @@ public class Main {
 
 
 }
-
-
-/*
-public class Main {
-    public static void main(String[] args) {
-        StudentController studentController = new StudentController();
-        studentController.chooise();
-    }
-}*/

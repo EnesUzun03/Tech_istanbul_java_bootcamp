@@ -1,3 +1,4 @@
+/*
 package com.enesuzun.utils;
 
 import java.lang.annotation.*;
@@ -27,4 +28,4 @@ class Test {
     public static void main(String[] args) {
         Test.process();
     }
-}
+}*/

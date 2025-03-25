@@ -1,3 +1,4 @@
+/*
 package com.enesuzun.utils;
 
 //Aspect springin bir parçasıdaır tam olarak kullanamadığımız için reflection şeklinde kullanacağız
@@ -36,3 +37,4 @@ public class LoggingAspect {
     }
 
 }
+*/
